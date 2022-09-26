@@ -1,0 +1,10 @@
+**/node_modules
+**/.temp
+**/.cache
+**/.docs
+
+
+**/dist
+**/build
+**/.history
+**/*.log
