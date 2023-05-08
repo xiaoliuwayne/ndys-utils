@@ -1,0 +1,13 @@
+{
+    "source": {
+        "include": [ "src/" ],
+        "exclude": [ "src/mock","src/.babelrc.json" ]
+      },
+      "opts": {
+        "template": "../../node_modules/docdash",
+        "encoding": "utf8",
+        "destination": "./docs/",
+        "recurse": true,
+        "verbose": false
+      }
+}

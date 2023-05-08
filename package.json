@@ -1,11 +1,60 @@
 {
-  "name": "wayne-space-utils",
-  "version": "1.0.1",
-  "description": "common toolkit",
-  "main": "index.js",
+  "name": "ndys-utils",
+  "version": "0.0.1",
+  "description": "ndys utils",
+  "main": "./index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf dist",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "tdd": "cross-env NODE_ENV=development rollup -c ./rollup.config.tdd.js",
+    "start": "npm run clean && cross-env NODE_ENV=development rollup -w -c ./rollup.config.dev.js",
+    "build": "npm run clean && cross-env NODE_ENV=production rollup -c ./rollup.config.prod.js",
+    "docs": "jsdoc -c jsdoc.json"
   },
-  "author": "wayneliu",
-  "license": "ISC"
+  "type": "module",
+  "author": "liuzewen",
+  "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/preset-env": "^7.19.4",
+    "@rollup/plugin-alias": "^4.0.0",
+    "@rollup/plugin-babel": "^6.0.0",
+    "@rollup/plugin-commonjs": "^23.0.0",
+    "@rollup/plugin-eslint": "^9.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-replace": "^5.0.0",
+    "cross-env": "^7.0.3",
+    "docdash": "^1.2.0",
+    "jest": "^29.1.2",
+    "jest-environment-jsdom": "^29.2.2",
+    "mockjs": "^1.1.0",
+    "rollup-plugin-filesize": "^9.1.2",
+    "rollup-plugin-serve": "^2.0.1",
+    "rollup-plugin-uglify": "^6.0.4",
+    "taffydb": "^2.7.3"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "jsdom",
+    "transform": {},
+    "automock": false,
+    "globals": {
+      "window": {}
+    }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ndys utils function"
+  },
+  "keywords": [
+    "ndys",
+    "utils",
+    "web"
+  ]
 }
