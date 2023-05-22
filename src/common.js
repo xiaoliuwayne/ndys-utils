@@ -372,6 +372,7 @@ function mergeArrays() {
 // === common.array.test.js end ===
 
 function isNumberStr(source, strictMode = true) {
+    // 严格模式，对小数点位置是否限制
     const regModes = Object.freeze({
         true: /(^[1-9]\d*\.?\d*$)|(^0\.\d*[1-9]$)/,
         false: /^[0-9]+\.{0,1}\d+$/,
