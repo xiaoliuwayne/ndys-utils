@@ -1,0 +1,12 @@
+**/.history
+**/image
+**/src
+**/test
+
+**/index.js
+**/jest_config_bk.js
+**/jsdoc.json
+**/rollup.config.base.js
+**/rollup.config.dev.js
+**/rollup.config.prod.js
+**/rollup.config.tdd.js

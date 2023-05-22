@@ -1,4 +1,4 @@
-import { getDataType } from './common'
+import { getDataType } from './common.js'
 
 /**
  * @author WayneLiu

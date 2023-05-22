@@ -1,4 +1,4 @@
-# ndd-utils function
+# ndys-utils function
 
 ## 使用方法
 
@@ -11,7 +11,7 @@ import { getDataType } from 'ndd-utils'
 console.log(getDataType(123))  // Number
 ```
 
-2,自托管的方式（CDN)下载编译好的 dist 就可以了。 `<script src='packages\ndd-utils\dist\ndd-utils.umd.min.js'></script>`
+2,自托管的方式（CDN)下载编译好的 dist 就可以了。 `<script src='packages\ndys-utils\dist\ndys-utils.umd.min.js'></script>`
 
 ### ajax.js 模块
 

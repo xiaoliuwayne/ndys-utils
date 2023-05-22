@@ -1,4 +1,4 @@
-export { getRequest, postRequest, ajax, parseUrlQuery } from "./src/ajax.js";
+export { getRequest, postRequest, ajax, parseUrlQuery } from './src/ajax.js'
 
 export {
   getDataType,
@@ -14,7 +14,7 @@ export {
   getRepetedEleIndexesInArr,
   generateUniqueEleArr,
   mergeArrays,
-} from "./src/common.js";
+} from './src/common.js'
 
 export {
   deepCloneArr,
@@ -24,6 +24,11 @@ export {
   getObjPropertiesByGetOwnPropertyNames,
   getObjPropertiesByForIn,
   getObjPropertiesByKeys,
-} from "./src/deepClone.js";
+} from './src/deepClone.js'
 
-export { isObject, isEmptyObject, generateArrayFromObj, getQueryStr } from "./src/object.js";
+export {
+  isObject,
+  isEmptyObject,
+  generateArrayFromObj,
+  getQueryStr,
+} from './src/object.js'

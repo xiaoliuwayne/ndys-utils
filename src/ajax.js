@@ -6,8 +6,8 @@
  */
 
 // var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-import { promiseCatchBlock, getDataType } from "./common.js";
-import { getQueryStr } from "./object.js";
+import { promiseCatchBlock, getDataType } from './common.js'
+import { getQueryStr } from './object.js'
 
 /**
  * @author WayneLiu
@@ -20,13 +20,13 @@ import { getQueryStr } from "./object.js";
 function parseUrlQuery(url) {
   // 将查询参数转换成要通过get方法获取属性的search对象 xxx?a=1&b=2 ==> {a:1,b:2}
   // TypeError: Invalid URL: /abc/test
-  const base = "http://localhost";
-  const params = {};
-  const searchParamsObj = new URL(url, base).searchParams;
+  const base = 'http://localhost'
+  const params = {}
+  const searchParamsObj = new URL(url, base).searchParams
   for (const [key, value] of searchParamsObj.entries()) {
-    params[decodeURIComponent(key)] = decodeURIComponent(value);
+    params[decodeURIComponent(key)] = decodeURIComponent(value)
   }
-  return params;
+  return params
 }
 
 /**
@@ -43,44 +43,44 @@ function parseUrlQuery(url) {
 // XMLHttpRequest才能被mockjs拦截，而fetch是不被拦截的，
 function ajax(url, method, objData, headers) {
   return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest(); // IE 7+ support
+    const xhr = new XMLHttpRequest() // IE 7+ support
     xhr.onreadystatechange = function () {
       switch (xhr.readyState) {
         case 0: // UNSENT
-          break;
+          break
         case 1: // OPENED
-          break;
+          break
         case 2: // HEADERS_RECEIVED
-          break;
+          break
         case 3: // LOADING
-          break;
+          break
         case 4: //DONE
           if (xhr.readyState == 4) {
             if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
               // xhr.responseText 必须是json格式
-              const data = JSON.parse(xhr.responseText);
-              return resolve(data);
+              const data = JSON.parse(xhr.responseText)
+              return resolve(data)
             } else {
-              return reject({ msg: `Error!`, data: xhr, success: false });
+              return reject({ msg: `Error!`, data: xhr, success: false })
             }
           }
-          break;
+          break
       }
-    };
-    xhr.open(method, url, true);
-    setXHRHeaders(xhr, headers);
-    const data = getPassedData(objData, headers);
-    xhr.send(data);
+    }
+    xhr.open(method, url, true)
+    setXHRHeaders(xhr, headers)
+    const data = getPassedData(objData, headers)
+    xhr.send(data)
   }).catch((err) => {
     return Promise.resolve({
       success: false,
-      msg: "XMLHttpRequest Error.it was rejected",
+      msg: 'XMLHttpRequest Error.it was rejected',
       data: err,
-    });
-  });
+    })
+  })
 }
 
-const promiseAjax = promiseCatchBlock(ajax);
+const promiseAjax = promiseCatchBlock(ajax)
 /**
  * @author WayneLiu
  * @function
@@ -91,10 +91,10 @@ const promiseAjax = promiseCatchBlock(ajax);
  *
  */
 function setXHRHeaders(xhr, headers) {
-  const isObj = getDataType(headers) === "Object";
+  const isObj = getDataType(headers) === 'Object'
   if (isObj) {
     for (const [k, v] of Object.entries(headers)) {
-      xhr.setRequestHeader(k, v);
+      xhr.setRequestHeader(k, v)
     }
   }
 }
@@ -109,24 +109,24 @@ function setXHRHeaders(xhr, headers) {
  */
 function getPassedData(objData, headers) {
   function getFormUrlencodedData(obj) {
-    return;
+    return
   }
   function getMultipartFormdata(obj) {}
   function getJsonData(obj) {
-    return JSON.stringify(obj);
+    return JSON.stringify(obj)
   }
   const CONTENT_TYPE_DATA = Object.freeze({
-    "application/x-www-form-urlencoded": getFormUrlencodedData,
-    "multipart/form-data": getMultipartFormdata,
-    "application/json; charset=utf-8": getJsonData,
-  });
-  let data;
-  const contentType = headers && headers["Content-type"];
+    'application/x-www-form-urlencoded': getFormUrlencodedData,
+    'multipart/form-data': getMultipartFormdata,
+    'application/json; charset=utf-8': getJsonData,
+  })
+  let data
+  const contentType = headers && headers['Content-type']
   if (contentType) {
-    const getDataFn = CONTENT_TYPE_DATA[contentType];
-    data = getDataFn(objData);
+    const getDataFn = CONTENT_TYPE_DATA[contentType]
+    data = getDataFn(objData)
   }
-  return data;
+  return data
 }
 /**
  * @author WayneLiu
@@ -139,9 +139,9 @@ function getPassedData(objData, headers) {
  */
 function getRequest(url, data) {
   // const headers = { "Content-type": "application/x-www-form-urlencoded" }; // default
-  const queryStr = getQueryStr(data || {});
-  const finalUrl = `${url}${queryStr ? "?" : ""}${queryStr}`;
-  return promiseAjax(finalUrl, "get");
+  const queryStr = getQueryStr(data || {})
+  const finalUrl = `${url}${queryStr ? '?' : ''}${queryStr}`
+  return promiseAjax(finalUrl, 'get')
 }
 /**
  * @author WayneLiu
@@ -153,14 +153,14 @@ function getRequest(url, data) {
  * @return {Object} 返回ajax后的promise实例
  *
  */
-function postRequest(url, data, mode = "json") {
+function postRequest(url, data, mode = 'json') {
   const headersContentType = {
-    json: "application/json; charset=utf-8",
-    "form-urlencoded": "application/x-www-form-urlencoded",
-    "form-data": "multipart/form-data",
-  };
-  const headers = { "Content-type": headersContentType[mode] };
-  return promiseAjax(url, "post", data, headers);
+    json: 'application/json; charset=utf-8',
+    'form-urlencoded': 'application/x-www-form-urlencoded',
+    'form-data': 'multipart/form-data',
+  }
+  const headers = { 'Content-type': headersContentType[mode] }
+  return promiseAjax(url, 'post', data, headers)
 }
 
 // function putRequest() {}
@@ -174,4 +174,4 @@ export {
   // deleteRequest,
   ajax,
   parseUrlQuery,
-};
+}

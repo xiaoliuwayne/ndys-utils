@@ -1,4 +1,4 @@
-import { getDataType } from "./common.js";
+import { getDataType } from './common.js'
 /**
  * @author WayneLiu
  * @function
@@ -8,8 +8,8 @@ import { getDataType } from "./common.js";
  *
  */
 function isObject(data) {
-  const type = getDataType(data);
-  return type === "Object";
+  const type = getDataType(data)
+  return type === 'Object'
 }
 /**
  * @author WayneLiu
@@ -21,13 +21,13 @@ function isObject(data) {
  */
 function isEmptyObject(data) {
   // {}
-  const flag = isObject(data);
+  const flag = isObject(data)
   if (flag) {
-    const length = Object.keys(data).length;
-    return length === 0;
+    const length = Object.keys(data).length
+    return length === 0
   } else {
-    console.warn(`${data}: Not a Object...`);
-    return false;
+    console.warn(`${data}: Not a Object...`)
+    return false
   }
 }
 /**
@@ -40,22 +40,24 @@ function isEmptyObject(data) {
  *
  */
 function generateArrayFromObj(obj, opt) {
-  const flag = isObject(obj);
-  const defaultOpt = { mark: "=", convertFn: null };
+  const flag = isObject(obj)
+  const defaultOpt = { mark: '=', convertFn: null }
   if (flag) {
-    const finalOpt = Object.assign(defaultOpt, opt);
+    const finalOpt = Object.assign(defaultOpt, opt)
     const res = Object.entries(obj).map(([k, v]) => {
-      const isFunction = getDataType(finalOpt.convertFn) === "Function";
+      const isFunction = getDataType(finalOpt.convertFn) === 'Function'
       if (isFunction) {
-        return `${finalOpt.convertFn(k)}${finalOpt.mark}${finalOpt.convertFn(v)}`;
+        return `${finalOpt.convertFn(k)}${finalOpt.mark}${finalOpt.convertFn(
+          v
+        )}`
       } else {
-        return `${k}${finalOpt.mark}${v}`;
+        return `${k}${finalOpt.mark}${v}`
       }
-    });
-    return res;
+    })
+    return res
   } else {
-    console.warn(`${obj} is not an object`);
-    return [];
+    console.warn(`${obj} is not an object`)
+    return []
   }
 }
 /**
@@ -67,8 +69,10 @@ function generateArrayFromObj(obj, opt) {
  *
  */
 function getQueryStr(obj) {
-  const queryStrArr = generateArrayFromObj(obj, { convertFn: encodeURIComponent });
-  return queryStrArr.join("&");
+  const queryStrArr = generateArrayFromObj(obj, {
+    convertFn: encodeURIComponent,
+  })
+  return queryStrArr.join('&')
 }
 
 /**
@@ -83,21 +87,27 @@ function getQueryStr(obj) {
  */
 function assignObjProperties(target = {}, source = {}, commonProperties = []) {
   // 不同对象之间同属性批量赋值
-  const targetIsObj = getDataType(target) === "Object";
-  const sourceIsObj = getDataType(source) === "Object";
-  const res = {};
-  if (!(targetIsObj && sourceIsObj)) return target;
+  const targetIsObj = getDataType(target) === 'Object'
+  const sourceIsObj = getDataType(source) === 'Object'
+  const res = {}
+  if (!(targetIsObj && sourceIsObj)) return target
   if (commonProperties.length > 0) {
-    Object.assign(res, target);
+    Object.assign(res, target)
     for (const p of commonProperties) {
       if (p in res && p in source) {
-        res[p] = source[p];
+        res[p] = source[p]
       }
     }
   } else {
-    Object.assign(res, target, source);
+    Object.assign(res, target, source)
   }
-  return res;
+  return res
 }
 
-export { isObject, isEmptyObject, generateArrayFromObj, getQueryStr, assignObjProperties };
+export {
+  isObject,
+  isEmptyObject,
+  generateArrayFromObj,
+  getQueryStr,
+  assignObjProperties,
+}

@@ -1,16 +1,19 @@
-import filesize from "rollup-plugin-filesize";
-import { uglify } from "rollup-plugin-uglify";
+import filesize from 'rollup-plugin-filesize'
+import { uglify } from 'rollup-plugin-uglify'
 // import { minify } from "uglify-es";
 
-import baseConfig from "./rollup.config.base.js";
-import pkg from "./package.json" assert { type: "json" };
+import baseConfig from './rollup.config.base.js'
+// import pkg from "./package.json" assert { type: "json" };
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
+const pkg = require('./package.json')
 
 // banner
 const banner =
-  `${"/*!\n" + " * "}${pkg.name}.js v${pkg.version}\n` +
+  `${'/*!\n' + ' * '}${pkg.name}.js v${pkg.version}\n` +
   ` * (c) 2018-${new Date().getFullYear()} ${pkg.author}\n` +
   ` * Released under the MIT License.\n` +
-  ` */`;
+  ` */`
 
 // 支持输出 []
 export default [
@@ -21,7 +24,7 @@ export default [
       // umd development version with sourcemap
       {
         file: `dist/${pkg.name}.umd.min.js`,
-        format: "umd",
+        format: 'umd',
         name: pkg.name,
         banner,
         sourcemap: false,
@@ -29,7 +32,7 @@ export default [
       // cjs and esm version
       {
         file: `dist/${pkg.name}.min.cjs`,
-        format: "cjs",
+        format: 'cjs',
         banner,
         name: pkg.name,
         sourcemap: false,
@@ -37,7 +40,7 @@ export default [
       // cjs and esm version
       {
         file: `dist/${pkg.name}.esm.min.mjs`,
-        format: "es",
+        format: 'es',
         banner,
         name: pkg.name,
         sourcemap: false,
@@ -51,7 +54,7 @@ export default [
           compress: {
             drop_console: true,
           },
-        },
+        }
         // minify,
       ),
       filesize(),
@@ -82,4 +85,4 @@ export default [
   //     filesize(),
   //   ],
   // },
-];
+]

@@ -1,5 +1,5 @@
-import { getDataType, mergeArrays, generateUniqueEleArr } from "./common";
-import { isObject } from "./object.js";
+import { getDataType, mergeArrays, generateUniqueEleArr } from '../../common.js'
+import { isObject } from './object.js'
 
 /**
  * @author WayneLiu
@@ -11,14 +11,14 @@ import { isObject } from "./object.js";
  *
  */
 function deepClone(data, mode) {
-  const type = getDataType(data);
+  const type = getDataType(data)
   switch (type) {
-    case "Object":
-      return deepCloneObj(data, mode);
-    case "Array":
-      return deepCloneArr(data);
+    case 'Object':
+      return deepCloneObj(data, mode)
+    case 'Array':
+      return deepCloneArr(data)
     default:
-      return data;
+      return data
   }
 }
 /**
@@ -30,11 +30,11 @@ function deepClone(data, mode) {
  *
  */
 function deepCloneArr(data) {
-  const isArr = getDataType(data) === "Array";
+  const isArr = getDataType(data) === 'Array'
   if (isArr) {
-    return [].concat(data);
+    return [].concat(data)
   } else {
-    return data;
+    return data
   }
 }
 /**
@@ -45,17 +45,17 @@ function deepCloneArr(data) {
  * @return {Object} 返回data的深拷贝
  *
  */
-function deepCloneObj(data, mode = "OwnEnumProperties") {
-  const isObj = isObject(data);
+function deepCloneObj(data, mode = 'OwnEnumProperties') {
+  const isObj = isObject(data)
   if (isObj) {
-    const res = {};
-    const properties = getObjPropertiesOrSymbols(data, mode);
+    const res = {}
+    const properties = getObjPropertiesOrSymbols(data, mode)
     for (const p of properties) {
-      res[p] = data[p];
+      res[p] = data[p]
     }
-    return res;
+    return res
   } else {
-    return data;
+    return data
   }
 }
 /**
@@ -67,47 +67,51 @@ function deepCloneObj(data, mode = "OwnEnumProperties") {
  * @return {Array} 返回mode下的对象属性数组
  *
  */
-function getObjPropertiesOrSymbols(obj, mode = "OwnEnumProperties") {
-  let objPropertiesIncludingSymbols = [];
-  const isObj = isObject(obj);
+function getObjPropertiesOrSymbols(obj, mode = 'OwnEnumProperties') {
+  let objPropertiesIncludingSymbols = []
+  const isObj = isObject(obj)
   if (isObj) {
-    const ownEnumProperties = getObjPropertiesByKeys(obj);
-    const ownAndInheritedEnumProperties = getObjPropertiesByForIn(obj);
-    const ownEnumAndOwnNonenumProperties = getObjPropertiesByGetOwnPropertyNames(obj);
-    const ownSymbols = getObjPropertiesByGetOwnPropertySymbols(obj);
-    let tmpRes = [];
+    const ownEnumProperties = getObjPropertiesByKeys(obj)
+    const ownAndInheritedEnumProperties = getObjPropertiesByForIn(obj)
+    const ownEnumAndOwnNonenumProperties =
+      getObjPropertiesByGetOwnPropertyNames(obj)
+    const ownSymbols = getObjPropertiesByGetOwnPropertySymbols(obj)
+    let tmpRes = []
     switch (mode) {
-      case "OwnEnumProperties":
-        objPropertiesIncludingSymbols = ownEnumProperties;
-        break;
-      case "OwnAndInheritedEnumProperties":
-        objPropertiesIncludingSymbols = ownAndInheritedEnumProperties;
-        break;
-      case "OwnEnumAndOwnNonenumProperties":
-        objPropertiesIncludingSymbols = ownEnumAndOwnNonenumProperties;
-        break;
-      case "OwnAndInheritedEnumPropertiesAndOwnNonenum":
-        tmpRes = mergeArrays(ownAndInheritedEnumProperties, ownEnumAndOwnNonenumProperties);
-        objPropertiesIncludingSymbols = generateUniqueEleArr(tmpRes);
-        break;
-      case "OwnSymbols":
-        objPropertiesIncludingSymbols = ownSymbols;
-        break;
-      case "OwnAndInheritedEnumPropertiesAndOwnSymbols":
-        tmpRes = mergeArrays(ownAndInheritedEnumProperties, ownSymbols);
-        objPropertiesIncludingSymbols = generateUniqueEleArr(tmpRes);
-        break;
-      case "OwnAndInheritedEnumPropertiesAndOwnNonenumAndOwnSymbols":
+      case 'OwnEnumProperties':
+        objPropertiesIncludingSymbols = ownEnumProperties
+        break
+      case 'OwnAndInheritedEnumProperties':
+        objPropertiesIncludingSymbols = ownAndInheritedEnumProperties
+        break
+      case 'OwnEnumAndOwnNonenumProperties':
+        objPropertiesIncludingSymbols = ownEnumAndOwnNonenumProperties
+        break
+      case 'OwnAndInheritedEnumPropertiesAndOwnNonenum':
+        tmpRes = mergeArrays(
+          ownAndInheritedEnumProperties,
+          ownEnumAndOwnNonenumProperties
+        )
+        objPropertiesIncludingSymbols = generateUniqueEleArr(tmpRes)
+        break
+      case 'OwnSymbols':
+        objPropertiesIncludingSymbols = ownSymbols
+        break
+      case 'OwnAndInheritedEnumPropertiesAndOwnSymbols':
+        tmpRes = mergeArrays(ownAndInheritedEnumProperties, ownSymbols)
+        objPropertiesIncludingSymbols = generateUniqueEleArr(tmpRes)
+        break
+      case 'OwnAndInheritedEnumPropertiesAndOwnNonenumAndOwnSymbols':
         tmpRes = mergeArrays(
           ownAndInheritedEnumProperties,
           ownEnumAndOwnNonenumProperties,
-          ownSymbols,
-        );
-        objPropertiesIncludingSymbols = generateUniqueEleArr(tmpRes);
-        break;
+          ownSymbols
+        )
+        objPropertiesIncludingSymbols = generateUniqueEleArr(tmpRes)
+        break
     }
   }
-  return objPropertiesIncludingSymbols;
+  return objPropertiesIncludingSymbols
 }
 /**
  * @author WayneLiu
@@ -118,12 +122,12 @@ function getObjPropertiesOrSymbols(obj, mode = "OwnEnumProperties") {
  *
  */
 function getObjPropertiesByKeys(obj) {
-  let properties = [];
-  const isObj = isObject(obj);
+  let properties = []
+  const isObj = isObject(obj)
   if (isObj) {
-    properties = Object.keys(obj);
+    properties = Object.keys(obj)
   }
-  return properties;
+  return properties
 }
 /**
  * @author WayneLiu
@@ -134,14 +138,14 @@ function getObjPropertiesByKeys(obj) {
  *
  */
 function getObjPropertiesByForIn(obj) {
-  const properties = [];
-  const isObj = isObject(obj);
+  const properties = []
+  const isObj = isObject(obj)
   if (isObj) {
     for (const p in obj) {
-      properties.push(p);
+      properties.push(p)
     }
   }
-  return properties;
+  return properties
 }
 /**
  * @author WayneLiu
@@ -152,12 +156,12 @@ function getObjPropertiesByForIn(obj) {
  *
  */
 function getObjPropertiesByGetOwnPropertyNames(obj) {
-  let properties = [];
-  const isObj = isObject(obj);
+  let properties = []
+  const isObj = isObject(obj)
   if (isObj) {
-    properties = Object.getOwnPropertyNames(obj);
+    properties = Object.getOwnPropertyNames(obj)
   }
-  return properties;
+  return properties
 }
 /**
  * @author WayneLiu
@@ -168,12 +172,12 @@ function getObjPropertiesByGetOwnPropertyNames(obj) {
  *
  */
 function getObjPropertiesByGetOwnPropertySymbols(obj) {
-  let properties = [];
-  const isObj = isObject(obj);
+  let properties = []
+  const isObj = isObject(obj)
   if (isObj) {
-    properties = Object.getOwnPropertySymbols(obj);
+    properties = Object.getOwnPropertySymbols(obj)
   }
-  return properties;
+  return properties
 }
 
 export {
@@ -185,4 +189,4 @@ export {
   getObjPropertiesByForIn,
   getObjPropertiesByKeys,
   deepClone,
-};
+}

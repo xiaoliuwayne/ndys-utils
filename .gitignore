@@ -1,10 +1,9 @@
 **/node_modules
 **/.temp
 **/.cache
-**/.docs
+**/docs
 
 
-**/dist
 **/build
 **/.history
 **/*.log
