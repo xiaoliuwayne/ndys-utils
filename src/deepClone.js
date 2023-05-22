@@ -1,4 +1,4 @@
-import { getDataType, mergeArrays, generateUniqueEleArr } from '../../common.js'
+import { getDataType, mergeArrays, generateUniqueEleArr } from './common.js'
 import { isObject } from './object.js'
 
 /**

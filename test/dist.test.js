@@ -28,10 +28,10 @@ import {
   resetNullAndUndefined,
   stringifyData,
   tryCatchBlock,
-} from "../dist/ndd-utils.esm.min.mjs";
+} from '../dist/ndys-utils.esm.min.mjs'
 
 // 只能测试esm模式
-describe("ndd-utils.esm.min.mjs in dist fold", () => {
+describe('ndd-utils.esm.min.mjs in dist fold', () => {
   const funcList = [
     ajax,
     convertToBoolean,
@@ -61,11 +61,11 @@ describe("ndd-utils.esm.min.mjs in dist fold", () => {
     resetNullAndUndefined,
     stringifyData,
     tryCatchBlock,
-  ];
+  ]
   for (const f of funcList) {
     test(`${f.name} is a function`, () => {
-      const flag = getDataType(f) === "Function";
-      expect(flag).toBeTruthy();
-    });
+      const flag = getDataType(f) === 'Function'
+      expect(flag).toBeTruthy()
+    })
   }
-});
+})

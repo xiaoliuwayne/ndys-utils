@@ -8,7 +8,7 @@ import {
   getObjPropertiesByGetOwnPropertyNames,
   getObjPropertiesByForIn,
   getObjPropertiesByKeys,
-} from '../deepClone.js'
+} from '../src/deepClone.js'
 
 describe('deepClone.js module test', () => {
   const baseObjS1 = Symbol('baseObjS1'),
