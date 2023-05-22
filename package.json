@@ -1,6 +1,6 @@
 {
   "name": "ndys-utils",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "ndys utils",
   "main": "dist/ndys-utils.umd.min.js",
   "scripts": {
